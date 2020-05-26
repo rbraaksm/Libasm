@@ -41,3 +41,60 @@ char		*ft_strdup(const char *s);
 	b = ft_write(40, "hello", 5);
 	perror("4) <libasm> errno ");
 	printf("4) <unistd> return : %d\n4) <libasm> return : %d\n", a, b);
+
+	int fd;
+	char uni_buf[50];
+	char lib_buf[50];
+	ssize_t ret;
+
+	printf("\n	-----  FT_READ    -----\n\n");
+
+	fd = open("Makefile", O_RDONLY);
+	ret = read(fd, uni_buf, 5);
+	printf("1) <unistd> : %zd\n", ret);
+	close(fd);
+
+	fd = open("Makefile", O_RDONLY);
+	ret = ft_read(fd, lib_buf, 5);
+	printf("1) <libasm> : %zd\n", ret);
+	close(fd);
+
+	fd = open("emptyFile", O_RDONLY | O_CREAT | O_TRUNC, 0777);
+	ret = read(fd, uni_buf, 5);
+	printf("2) <unistd> : %zd\n", ret);
+	close(fd);
+
+	fd = open("emptyFile", O_RDONLY | O_CREAT | O_TRUNC, 0777);
+	ret = ft_read(fd, lib_buf, 5);
+	printf("2) <libasm> : %zd\n", ret);
+	close(fd);
+	remove("emptyFile");
+	printf("\n");
+
+	errno = 100;
+	fd = open("I don't exist", O_RDONLY);
+	ret = read(fd, uni_buf, 5);
+	printf("3) <unistd> return : %zd\n", ret);
+	perror("3) <unistd> errno ");
+	close(fd);
+
+	errno = 100;
+	fd = open("I don't exist", O_RDONLY);
+	ret = ft_read(fd, lib_buf, 5);
+	printf("3) <libasm> return : %zd\n", ret);
+	perror("3) <libasm> errno ");
+	close(fd);
+
+	errno = 100;
+	fd = open("Makefile", O_RDONLY);
+	ret = read(fd, NULL, 5);
+	printf("4) <unistd> return : %zd\n", ret);
+	perror("4) <unistd> errno ");
+	close(fd);
+
+	errno = 100;
+	fd = open("Makefile", O_RDONLY);
+	ret = ft_read(fd, NULL, 5);
+	printf("4) <libasm> return : %zd\n", ret);
+	perror("4) <libasm> errno ");
+	close(fd);
