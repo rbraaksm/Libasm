@@ -1,18 +1,18 @@
 ; **************************************************************************** ;
 ;                                                                              ;
 ;                                                         ::::::::             ;
-;    ft_atoi_base_bonus.s                               :+:    :+:             ;
+;    ft_atoi_base2.s                                    :+:    :+:             ;
 ;                                                      +:+                     ;
 ;    By: abobas <abobas@student.codam.nl>             +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/04/30 15:01:10 by abobas        #+#    #+#                  ;
-;    Updated: 2020/04/30 15:01:10 by abobas        ########   odam.nl          ;
+;    Updated: 2020/05/31 13:14:33 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
-global  _ft_atoi_base
+global  _ft_atoi_base2
 
-_ft_atoi_base:                                                  ; rdi = string, rsi = base
+_ft_atoi_base2:                                                  ; rdi = string, rsi = base
                     mov         rbx, 0                          ; base length
                     cmp         rdi, 0
                     je          error
@@ -104,7 +104,7 @@ return_value:
                     imul        rax, rbx                        ; multiply total by baselength
                     jo          long_max                        ; jump if overflow
                     add         rax, r14                        ; add base char to return value
-                    jmp         atoi_inc                
+                    jmp         atoi_inc
 error:
                     mov         rax, 0
                     ret

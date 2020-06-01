@@ -3,45 +3,41 @@
 ;                                                         ::::::::             ;
 ;    ft_strdup.s                                        :+:    :+:             ;
 ;                                                      +:+                     ;
-;    By: abobas <abobas@student.codam.nl>             +#+                      ;
+;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
-;    Created: 2020/04/30 15:00:05 by abobas        #+#    #+#                  ;
-;    Updated: 2020/04/30 15:00:05 by abobas        ########   odam.nl          ;
+;    Created: 2020/05/25 14:14:45 by rbraaksm      #+#    #+#                  ;
+;    Updated: 2020/05/27 17:01:00 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
-global  _ft_strdup
-extern  _malloc
+global _ft_strdup
+extern _malloc
+extern _ft_strlen
+extern _ft_strcpy
 
 _ft_strdup:
-                    cmp     rdi, 0                          ;check input string
-                    je      error
-                    mov     rcx, 0                          ;index
-length_inc:
-                    inc     rcx
-length:
-                    cmp     byte[rdi + rcx], 0              ;check end of string
-                    jne     length_inc
-allocate:
-                    mov     rbx, rdi                        ;save string in register rbx
-                    mov     rdi, rcx                        ;argument malloc = size
-                    push    rdi
-                    call    _malloc
-                    pop     rdi
-                    cmp     rax, 0                          ;check malloc return value
-                    je      error
-                    mov     rcx, 0                          ;reset index to 0
-                    jmp     copy
-increment_copy:
-                    inc     rcx               
+	push	rdi					; save str into stack
+	cmp		rdi, 0				; check input
+	je		error
+	mov		rcx, 0				; index counter
+	call	_ft_strlen
+	inc		rax					; length + 1
+	mov		rdi, rax			; malloc size
+	push	rbp					; safe base pointer
+	mov		rbp, rsp
+	and		rsp, - 16			; allign stack
+	call	_malloc
+	mov		rsp, rbp			; reset stack and base pointer
+	pop		rbp
+	cmp		rax, 0				; malloc succesful?
+	je		error
+
 copy:
-                    mov     dl, byte[rbx + rcx]
-                    mov     byte[rax + rcx], dl             ;copy char into destination string
-                    cmp     dl, 0                           ;check delimiter
-                    je      return
-                    jmp     increment_copy
+	pop		rsi					; original str as src
+	mov		rdi, rax			; allocated as dest
+	call	_ft_strcpy
+	ret
+
 error:
-                    mov    rax, 0                           ;error return
-                    ret           
-return:
-                    ret
+	pop		rdi
+	ret
