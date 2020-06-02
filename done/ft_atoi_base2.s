@@ -6,7 +6,7 @@
 ;    By: abobas <abobas@student.codam.nl>             +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/04/30 15:01:10 by abobas        #+#    #+#                  ;
-;    Updated: 2020/05/31 13:14:33 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/02 12:46:30 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -22,12 +22,14 @@ _ft_atoi_base2:                                                  ; rdi = string,
                     jmp         base_loop
 base_inc:
                     inc         rbx
+                    
 base_loop:
                     cmp         byte[rsi + rbx], 0              ; stopping condition for base checker
                     je          base_end                        ; return base
                     mov         rcx, rbx                        ; base checker index
 base_checker_inc:
                     inc         rcx
+                    
 base_checker_loop:
                     cmp         byte[rsi + rcx], 0              ; delimiter
                     je          base_check

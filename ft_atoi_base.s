@@ -6,105 +6,147 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/05/30 20:39:28 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/05/31 12:50:15 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/02 15:55:55 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
 global _ft_atoi_base
+extern _ft_strlen
 
-_ft_atoi_base:					; rdi = string rsi = base
-		 mov         rbx, 0                          ; base length
-         cmp         rdi, 0
-         je          error
-         cmp         rsi, 0
-         je          error
-         mov         rax, 0
-		jmp		base
+_ft_atoi_base:							; ft_atoi_base(char *rdi, char *rsi)
+		mov		rbx, 0					; base length
+		mov		rcx, 0
+        cmp		rdi, 0					; check input *string
+        je		error
+        cmp		rsi, 0					; check input *base
+        je		error
+        mov		rax, 0
+		mov		r12, 0
+		mov		r15, 0
+		jmp		spaces_base
+
+double_check:
+		mov		r13, r12
+		inc		r13
+		cmp		byte[rsi + r13], 0
+		jne		double
+		jmp		inc_r12
+
+double:
+		mov		r14b, byte[rsi + r12]
+		cmp		byte[rsi + r13], r14b
+		je		error
+		inc		r13
+		cmp		byte[rsi + r13], 0
+		je		inc_r12
+		jmp		double
+
+inc_r12:
+		inc		r12
+
+spaces_base:
+		cmp		byte[rsi + r12], 0			; check for delimiter
+		je		base
+		cmp		byte[rsi + r12], 127		;
+		jg		error
+		cmp		byte[rsi + r12], 32
+		jle		error
+		cmp		byte[rsi + r12], 9
+		je		error
+		cmp		byte[rsi + r12], 10
+		je		error
+		cmp		byte[rsi + r12], 11
+		je		error
+		cmp		byte[rsi + r12], 12
+		je		error
+		cmp		byte[rsi + r12], 13
+		je		error
+		cmp		byte[rsi + r12], 43
+		je		error
+		cmp		byte[rsi + r12], 45
+		je		error
+		jmp		double_check
 
 base:
-		cmp		rsi, 0
+		cmp		r12, 1
+		jle		error
+		jmp		spaces_str
+
+inc_rdi:
+		inc		rdi
+
+spaces_str:
+		cmp		byte[rdi], 32
+		je		inc_rdi
+		cmp		byte[rdi], 9
+		je		inc_rdi
+		cmp		byte[rdi], 10
+		je		inc_rdi
+		cmp		byte[rdi], 11
+		je		inc_rdi
+		cmp		byte[rdi], 12
+		je		inc_rdi
+		cmp		byte[rdi], 13
+		je		inc_rdi
+		jmp		plus_minus
+
+inc_rdi_plus:
+		inc		rdi
+		jmp		atoi
+
+negative:
+		mov		r13, 1
+		inc		rdi
+		jmp		atoi
+
+plus_minus:
+		cmp		byte[rdi], 43
+		je		inc_rdi_plus
+		cmp		byte[rdi], 45
+		je		negative
+		jmp		atoi
+
+atoi:
+		cmp		byte[rdi], 48
 		jl		error
-		cmp		rsi, 9
+		cmp		byte[rdi], 57
 		jg		error
-		mov		rax, rsi
-		ret
-		jmp		return
+		mov		r11, 0
+		jmp		get_value
 
-; base:
-		; movzx	rdx, byte[rsi]
-		; test	rdx, rdx
-		; je		error
-		; cmp		byte[rsi], 48
-		; jl		error
-		; cmp		byte[rsi], 57
-		; jg		error
-		; sub		rdx, 48
-		; imul	rdx, 10
-		; add		rax, rbx
-		; inc 	rsi
-		; jmp		return
+inc_r11:
+		inc		r11
 
+get_value:
+		mov		r15b, byte[rdi]
+		cmp		byte[rsi + r11], r15b
+		je		next
+		cmp		byte[rsi + r11], 0
+		je		next
+		jmp		inc_r11
 
+next:
+		cmp		r11, r12
+		jge		return
+		jmp		result
 
-; inc_rdi:
-; 		inc		rdi
-; 		jmp		spaces
-
-; spaces:
-; 		cmp		byte[rdi], 32
-; 		je		inc_rdi
-; 		cmp		byte[rdi], 9
-; 		je		inc_rdi
-; 		cmp		byte[rdi], 10
-; 		je		inc_rdi
-; 		cmp		byte[rdi], 11
-; 		je		inc_rdi
-; 		cmp		byte[rdi], 12
-; 		je		inc_rdi
-; 		cmp		byte[rdi], 13
-; 		je		inc_rdi
-; 		jmp		plus_minus
-
-; inc_rdi_plus:
-; 		inc		rdi
-; 		jmp		atoi
-
-; plus_minus:
-; 		cmp		byte[rdi], 43
-; 		je		inc_rdi_plus
-; 		cmp		byte[rdi], 45
-; 		je		negative
-; 		jmp		atoi
-
-; negative:
-; 		mov		r12, 1
-; 		inc		rdi
-; 		jmp		atoi
-
-; atoi:
-; 		movzx	rbx, byte[rdi]
-; 		test	rbx, rbx
-; 		je		return
-; 		cmp		rbx, 48
-; 		jl		error
-; 		cmp		rbx, 57
-; 		jg		error
-
-; 		sub		rbx, 48
-; 		imul	rax, 10
-; 		add		rax, rbx
-; 		inc 	rdi
-; 		jmp		atoi
-
+result:
+		imul	rcx, r12
+		add		rcx, r11
+		mov		rax, rcx
+		mov		r11, 0
+		inc		rdi
+		jmp		get_value
+		
 error:
 		mov		rax, 0
 		ret
 
-return:
-		; cmp		r12, 1
-		; je		negative_nb
-		ret
-
 negative_nb:
 		neg		rax
+		ret
+
+return:
+		cmp		r13, 1
+		je		negative_nb
 		ret
