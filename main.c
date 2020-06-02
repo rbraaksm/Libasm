@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/19 14:38:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/02 15:50:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/02 20:46:47 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,8 +308,8 @@ int		main(void)
 	// ft_read_check();
 	// ft_strdup_check();
 	// printf("%d\n", ft_atoi_base("20", "01234"));
-	char *a = "456456";
-	char *b = "!srg456y7";
+	char *a = "--ff";
+	char *b = "0123456789abcdef";
 	 printf("MINE = %d\n", ft_atoi_base(a, b));
 	//  printf("%d\n", ft_atoi_base2(a, b));
 	 printf("REAL = %d\n", ft_atoi(a, b));

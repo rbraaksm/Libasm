@@ -6,7 +6,7 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/05/30 20:39:28 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/02 15:55:55 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/02 20:44:49 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -88,16 +88,16 @@ spaces_str:
 		je		inc_rdi
 		cmp		byte[rdi], 13
 		je		inc_rdi
+		mov		r13, 1
 		jmp		plus_minus
 
 inc_rdi_plus:
 		inc		rdi
-		jmp		atoi
+		jmp		plus_minus
 
 negative:
-		mov		r13, 1
+		imul	r13, -1
 		inc		rdi
-		jmp		atoi
 
 plus_minus:
 		cmp		byte[rdi], 43
@@ -107,9 +107,9 @@ plus_minus:
 		jmp		atoi
 
 atoi:
-		cmp		byte[rdi], 48
+		cmp		byte[rdi], 32
 		jl		error
-		cmp		byte[rdi], 57
+		cmp		byte[rdi], 127
 		jg		error
 		mov		r11, 0
 		jmp		get_value
@@ -137,7 +137,7 @@ result:
 		mov		r11, 0
 		inc		rdi
 		jmp		get_value
-		
+
 error:
 		mov		rax, 0
 		ret
@@ -147,6 +147,6 @@ negative_nb:
 		ret
 
 return:
-		cmp		r13, 1
+		cmp		r13, -1
 		je		negative_nb
 		ret
