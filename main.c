@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/19 14:38:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/02 20:46:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/03 14:33:35 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,89 +216,6 @@ void	ft_strlen_check(void)
 	printf("\033[0;29m----------------\n");
 }
 
-int		ft_len(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int		get_value(char c, char *base)
-{
-	int i;
-
-	i = 0;
-	while (base[i] && base[i] != c)
-		i++;
-	if (i >= ft_len(base))
-		return (-1);
-	return (i);
-}
-
-int		is_space(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
-}
-
-int		check_base(char *str)
-{
-	int i;
-	int j;
-
-	if (ft_len(str) <= 1)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] < 32 || str[i] > 127 || is_space(str[i]) || str[i] == '-'
-				|| str[i] == '+')
-			return (0);
-		j = i + 1;
-		while (str[j])
-		{
-			if (str[j] == str[i])
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-int		ft_atoi(char *str, char *base)
-{
-	int		i;
-	int		b;
-	int		sign;
-	long	res;
-
-	i = 0;
-	sign = 1;
-	res = 0;
-	if (!check_base(base))
-		return (0);
-	b = ft_strlen(base);
-	while (is_space(str[i]))
-		i++;
-	while (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	while (get_value(str[i], base) >= 0)
-	{
-		res = res * b + get_value(str[i], base);
-		i++;
-	}
-	return (res * sign);
-}
-
 int		main(void)
 {
 	// ft_strlen_check();
@@ -307,12 +224,5 @@ int		main(void)
 	// ft_write_check();
 	// ft_read_check();
 	// ft_strdup_check();
-	// printf("%d\n", ft_atoi_base("20", "01234"));
-	char *a = "--ff";
-	char *b = "0123456789abcdef";
-	 printf("MINE = %d\n", ft_atoi_base(a, b));
-	//  printf("%d\n", ft_atoi_base2(a, b));
-	 printf("REAL = %d\n", ft_atoi(a, b));
-	// printf("%d\n", ft_atoi_base2("20a ", "01234"));
 	return (0);
 }

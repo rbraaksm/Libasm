@@ -6,7 +6,7 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/05/30 20:39:28 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/02 20:44:49 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/03 09:47:02 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -47,11 +47,11 @@ inc_r12:
 spaces_base:
 		cmp		byte[rsi + r12], 0			; check for delimiter
 		je		base
-		cmp		byte[rsi + r12], 127		;
+		cmp		byte[rsi + r12], 127
 		jg		error
 		cmp		byte[rsi + r12], 32
 		jle		error
-		cmp		byte[rsi + r12], 9
+		cmp		byte[rsi + r12], 9			
 		je		error
 		cmp		byte[rsi + r12], 10
 		je		error
