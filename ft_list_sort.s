@@ -6,51 +6,53 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/06/03 11:21:36 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/03 15:40:17 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/05 11:08:16 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
 global _ft_list_sort
 
-_ft_list_sort:                          ; rdi = **begin_list  rsi = cmp()
-        cmp     rdi, 0
-        je      return
-        cmp     rsi, 0
-        je      return
-        mov     r12, [rdi]              ; first = *begin
-        mov     rdi, [rdi]
+_ft_list_sort:						; rdi = **begin_list, rsi = *strcmp
+		cmp		rdi, 0
+		je		return
+		cmp		rsi, 0
+		je		return
+		mov		r10, [rdi]			; save begint_list
+		mov		rdi, [rdi]
+		jmp		loop1
 
-while:
-        cmp     rdi, 0
-        je      return
-        mov     r10, [rdi + 8]          ; address next element
-        cmp     r10, 0                  ; check end of list
-        je      return
-        push    rdi
-        push    rsi
-        mov     rax, rsi
-        mov     r13, [rdi + 8]          ; next element
-        mov     rsi, [r13 + 0]          ; second argument data.next
-        mov     rdi, [rdi + 0]          ; first argument data.current
-        call    rax                     ; call cmp (rdi, rsi)
-        pop     rsi
-        pop     rdi
-        jns     swap                    ; Jump No Sign (positive value)
+next:
+		mov		rdi, [rdi + 8]		; set rdi to list->next
 
-new_data:
-        mov     rdi, [rdi + 8]
-        jmp     while
+loop1:
+		cmp		rdi, 0				; check	if list->next == 1
+		je		return				; else end of list
+
+loop2:
+		mov		r11, [rdi + 8]		; set r11 to list->next
+		cmp		r11, 0				; check	if r11 == 1
+		je		return				; else end of list
+		push	rdi
+		push	rsi
+		mov		rax, rsi			; set rsi to rax
+		mov		rdi, [rdi + 0]		; set list->data to rdi
+		mov		rsi, [r11 + 0]		; set next list->data to rsi
+		call	rax					; call strcmp
+		pop		rsi
+		pop 	rdi
+		jns		swap				; check for sign Not Set. If sign is set go on, else swap
+		jmp		next
 
 swap:
-        cmp     rax, 0
-        je      new_data
-        mov     r14, [rdi + 0]          ; save current data
-        mov     r15, [r13 + 0]          ; save next data
-        mov     [r13 + 0], r10
-        mov     [rdi + 0], r15
-        mov     rdi, r12                ; set to first element
-        jmp     while
+		cmp		rax, 0				; check if cmp is equal
+		je		next
+		mov		r12, [rdi + 0]
+		mov		r13, [r11 + 0]
+		mov		[r11 + 0], r12
+		mov		[rdi + 0], r13
+		mov		rdi, r10			; set rdi to begin
+		jmp		loop2
 
 return:
-        mov     rax, 0
-        ret
+		mov		rax, 0
+		ret

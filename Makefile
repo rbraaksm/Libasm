@@ -6,7 +6,7 @@
 #    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/19 14:13:04 by rbraaksm      #+#    #+#                  #
-#    Updated: 2020/06/03 11:26:41 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/03 20:50:00 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS =	ft_strlen.s \
 		ft_strdup.s \
 		ft_atoi_base.s \
 		ft_list_push_front.s \
-		ft_list_size.s
+		ft_list_size.s \
+		ft_list_sort.s
 
 # BONUS = ft_atoi_base.s
 
