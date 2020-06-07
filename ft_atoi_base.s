@@ -1,12 +1,12 @@
 ; **************************************************************************** ;
 ;                                                                              ;
 ;                                                         ::::::::             ;
-;    ft_atoi_base.s                                     :+:    :+:             ;
+;    ft_atoi_base_bonus.s                               :+:    :+:             ;
 ;                                                      +:+                     ;
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/05/30 20:39:28 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/03 09:47:02 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/07 17:43:36 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -51,7 +51,7 @@ spaces_base:
 		jg		error
 		cmp		byte[rsi + r12], 32
 		jle		error
-		cmp		byte[rsi + r12], 9			
+		cmp		byte[rsi + r12], 9
 		je		error
 		cmp		byte[rsi + r12], 10
 		je		error

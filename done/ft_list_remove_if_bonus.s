@@ -6,7 +6,7 @@
 ;    By: abobas <abobas@student.codam.nl>             +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/04/30 15:00:56 by abobas        #+#    #+#                  ;
-;    Updated: 2020/05/05 13:34:13 by abobas        ########   odam.nl          ;
+;    Updated: 2020/06/05 20:15:46 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -81,7 +81,7 @@ list_loop:
 							pop		rdi
                             pop     rdx
                             pop     rsi
-                            pop     rdi                  
+                            pop     rdi
                             jmp     traverse
 return:
                             pop     rdi
@@ -94,9 +94,3 @@ empty_list:
                             pop     rdi
                             mov     [rdi], r14
                             ret
-
-
-              
-                            
-
-

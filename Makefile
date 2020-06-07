@@ -6,7 +6,7 @@
 #    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/19 14:13:04 by rbraaksm      #+#    #+#                  #
-#    Updated: 2020/06/03 20:50:00 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/07 18:11:00 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,17 +21,30 @@ SRCS =	ft_strlen.s \
 		ft_atoi_base.s \
 		ft_list_push_front.s \
 		ft_list_size.s \
-		ft_list_sort.s
+		ft_list_sort.s \
+		ft_list_remove_if.s
 
-# BONUS = ft_atoi_base.s
+BONUS = ft_atoi_base_bonus.s \
+		ft_list_push_front_bonus.s \
+		ft_list_size_bonus.s \
+		ft_list_sort_bonus.s \
+		ft_list_remove_if_bonus.s
 
 OBJS = $(SRCS:.s=.o)
+
+BOBJS = $(BONUS:.s=.o)
 
 $(NAME): $(OBJS)
 	@echo "\033[0;33m\nLibrary made\n"
 	@ar rcs $(NAME) $(OBJS)
 
+$(BONUS): $(BOBJS)
+	@echo "\033[0;33m\nLibrary made\n"
+	# @ar rcs $(BONUS) $(BOBJS)
+
 all: $(NAME)
+
+bonus: $(BONUS)
 
 %.o	: %.s
 	nasm -f macho64 $< -o $@

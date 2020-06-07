@@ -1,18 +1,18 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    ft_strcpy.s                                        :+:    :+:             #
-#                                                      +:+                     #
-#    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2020/05/20 18:03:10 by rbraaksm      #+#    #+#                  #
-#    Updated: 2020/05/22 16:48:24 by rbraaksm      ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
+; **************************************************************************** ;
+;                                                                              ;
+;                                                         ::::::::             ;
+;    ft_strcpy.s                                        :+:    :+:             ;
+;                                                      +:+                     ;
+;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
+;                                                    +#+                       ;
+;    Created: 2020/05/20 18:03:10 by rbraaksm      #+#    #+#                  ;
+;    Updated: 2020/06/07 17:21:45 by rbraaksm      ########   odam.nl          ;
+;                                                                              ;
+; **************************************************************************** ;
 
 global _ft_strcpy
 
-_ft_strcpy:
+_ft_strcpy:								; rdi = dest, rsi = src
 		mov		rcx, 0					;index number
 		cmp		rdi, 0					;check dest is null
 		je		exit
