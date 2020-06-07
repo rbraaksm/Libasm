@@ -6,13 +6,13 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/06/03 11:21:36 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/05 11:08:16 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/07 18:38:29 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
 global _ft_list_sort
 
-_ft_list_sort:						; rdi = **begin_list, rsi = *strcmp
+_ft_list_sort:						; rdi = **begin_list, rsi = *cmp
 		cmp		rdi, 0
 		je		return
 		cmp		rsi, 0
@@ -37,7 +37,7 @@ loop2:
 		mov		rax, rsi			; set rsi to rax
 		mov		rdi, [rdi + 0]		; set list->data to rdi
 		mov		rsi, [r11 + 0]		; set next list->data to rsi
-		call	rax					; call strcmp
+		call	rax					; call cmp
 		pop		rsi
 		pop 	rdi
 		jns		swap				; check for sign Not Set. If sign is set go on, else swap

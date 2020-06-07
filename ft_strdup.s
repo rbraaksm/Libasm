@@ -6,7 +6,7 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/05/25 14:14:45 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/07 15:39:51 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/07 18:41:39 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -15,7 +15,7 @@ extern _malloc
 extern _ft_strlen
 extern _ft_strcpy
 
-_ft_strdup:
+_ft_strdup:							; rdi = str
 		push	rdi					; save str into stack
 		cmp		rdi, 0				; check input
 		je		error

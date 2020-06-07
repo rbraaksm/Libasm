@@ -6,7 +6,7 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/06/03 11:07:50 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/03 11:40:23 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/07 18:37:36 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -20,12 +20,12 @@ _ft_list_size:                  ; rdi = **begin_list
         jmp     count
 
 check_end:
-        cmp     rcx, 0
+        cmp     rcx, 0			; check end of list
         je      return
 
 count:
-        inc     rax
-        mov     rcx, [rcx + 8]
+        inc     rax				; increase return value
+        mov     rcx, [rcx + 8]	; move adress next.element in rcx
         jmp     check_end
 
 return:
