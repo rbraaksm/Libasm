@@ -6,7 +6,7 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/06/08 10:43:07 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/08 17:45:09 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/08 22:07:39 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -70,9 +70,9 @@ free:
 		push	rdx
 		push	rcx
 		mov		rdi, r14			; move current.element in rdi
-		push	rdi
+		; push	rdi
 		call	_free
-		pop		rdi
+		; pop		rdi
 		pop		rcx
 		pop		rdx
 		pop		rsi
