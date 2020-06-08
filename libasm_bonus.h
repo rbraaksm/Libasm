@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 09:38:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/08 09:40:42 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/08 13:10:17 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 typedef struct		s_list
 {
-	struct s_list	*next;
 	void			*data;
+	struct s_list	*next;
 }					t_list;
 
 int					ft_atoi_base(char *str, char *base);

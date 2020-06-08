@@ -1,19 +1,19 @@
 ; **************************************************************************** ;
 ;                                                                              ;
 ;                                                         ::::::::             ;
-;    ft_list_push_front.s                               :+:    :+:             ;
+;    ft_list_push_front_bonus.s                         :+:    :+:             ;
 ;                                                      +:+                     ;
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
-;    Created: 2020/06/03 09:48:21 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/03 11:03:47 by rbraaksm      ########   odam.nl          ;
+;    Created: 2020/06/08 10:42:45 by rbraaksm      #+#    #+#                  ;
+;    Updated: 2020/06/08 11:46:30 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
 global _ft_list_push_front
 extern _malloc
 
-_ft_list_push_front:                    ; rdi = begin_list rsi = data
+_ft_list_push_front:                    ; rdi = **begin_list rsi = data
         cmp     rdi, 0
         je      error
         push    rdi                     ; store begin_list

@@ -6,60 +6,80 @@
 #    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/19 14:13:04 by rbraaksm      #+#    #+#                  #
-#    Updated: 2020/06/08 09:51:20 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/08 14:18:57 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-# NAME = libasm.a
+NAME = libasm.a
 
-# SRCS =	ft_strlen.s \
-# 		ft_strcpy.s \
-# 		ft_strcmp.s \
-# 		ft_write.s	\
-# 		ft_read.s	\
-# 		ft_strdup.s \
+SRCS =	ft_strlen.s \
+		ft_strcpy.s \
+		ft_strcmp.s \
+		ft_write.s	\
+		ft_read.s	\
+		ft_strdup.s \
+		ft_list_remove_if.s
 
-# BONUS = ft_atoi_base_bonus.s \
-# 		ft_list_push_front_bonus.s \
-# 		ft_list_size_bonus.s \
-# 		ft_list_sort_bonus.s \
-# 		ft_list_remove_if_bonus.s
+BONUS = ft_atoi_base_bonus.s \
+		ft_list_push_front_bonus.s \
+		ft_list_size_bonus.s \
+		ft_list_sort_bonus.s \
+		ft_list_remove_if_bonus.s
 
-# OBJS = $(SRCS:.s=.o)
+OBJ = $(SRCS:.s=.o)
 
-# BOBJS = $(BONUS:.s=.o)
+B_OBJ = $(SRCS:.s=.o) $(BONUS:.s=.o)
 
-# $(NAME): $(OBJS)
-# 	@echo "\033[0;33m\nLibrary made\n"
-# 	@ar rcs $(NAME) $(OBJS)
-# 	ranlib $(NAME)
+all: $(NAME)
 
-# $(BONUS): $(BOBJS)
-# 	@echo "\033[0;33m\nLibrary made\n"
-# 	@ar rcs $(BONUS) $(BOBJS)
+$(NAME): $(OBJ)
+	@echo "\033[0;33mUpdating library..."
+	ar rc $(NAME) $^
+	ranlib $(NAME)
+	rm -f $(OBJ)
+	rm -f $(B_OBJS)
+	@echo "\033[0m"
 
-# all: $(NAME)
+%.o: %.s
+	@echo "\033[0;32mGenerating binary..."
+	nasm -f macho64 $< -o $@
+	@echo "\033[0m"
 
-# bonus:
-# 	ar rc $(NAME) $^
-# 	ranlib $(NAME)
+clean:
+	@echo "\033[0;31mCleaning..."
+	rm -f ./test
+	rm -f ./test_bonus
+	@echo "\033[0m"
 
-# %.o	: %.s
-# 	nasm -f macho64 $< -o $@
+fclean: clean
+	@echo "\033[0;31mRemoving library..."
+	rm -f $(NAME)
+	@echo "\033[0m"
 
-# clean:
-# 	@rm -f $(OBJS)
-# 	@echo "\033[0;31mRemoved object files\033[0;29m"
+re: fclean all
 
-# test: all
-# 	@echo "\033[0;32m\nTesting your work\n\033[0;29m"
-# 	@gcc -Wall -Wextra -Werror -I./libasm.h libasm.a main.c -o ./libasm_test
-# 	@./libasm_test
+bonus: $(B_OBJ)
+	@echo "\033[0;33mUpdating library (with bonuses)..."
+	ar rc $(NAME) $^
+	ranlib $(NAME)
+	rm -f $(B_OBJ)
+	@echo "\033[0m"
 
-# fclean: clean
-# 	@rm -f $(NAME)
-# 	@rm -f libasm_test
-# 	@echo "\033[0;31mRemoved libasm.a"
-# 	@echo "Removed libasm_test\033[0;31m"
+test: re
+	@echo "\033[0;36mTesting : "
+	gcc -L. -lasm -o test main.c
+	@echo "\033[0m"
+	./test
 
-# re: fclean all
+test_bonus: $(B_OBJ)
+	@echo "\033[0;33mUpdating library (with bonuses)..."
+	ar rc $(NAME) $^
+	ranlib $(NAME)
+	rm -f $(B_OBJ)
+	rm -f $(OBJ)
+	@echo "\033[0m"
+	@echo "\033[0m"
+	@echo "\033[0;36mTesting : "
+	gcc -L. -lasm -o test_bonus main_bonus.c
+	@echo "\033[0m"
+	./test_bonus
