@@ -6,7 +6,7 @@
 #    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/19 14:13:04 by rbraaksm      #+#    #+#                  #
-#    Updated: 2020/06/08 14:18:57 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/08 17:46:31 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,13 @@ SRCS =	ft_strlen.s \
 		ft_write.s	\
 		ft_read.s	\
 		ft_strdup.s \
-		ft_list_remove_if.s
 
 BONUS = ft_atoi_base_bonus.s \
 		ft_list_push_front_bonus.s \
 		ft_list_size_bonus.s \
 		ft_list_sort_bonus.s \
-		ft_list_remove_if_bonus.s
+		ft_list_remove_if_bonus.s \
+		ft_list_remove_if_bonus2.s
 
 OBJ = $(SRCS:.s=.o)
 
