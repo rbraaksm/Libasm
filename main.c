@@ -6,11 +6,12 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/19 14:38:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/07 17:22:30 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/08 09:45:17 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm.h"
+#include <stdio.h>
 
 void	ft_strdup_check(void)
 {
