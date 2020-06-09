@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 09:41:15 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/09 17:08:39 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/09 22:39:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	create_list(t_list **list, int i)
 		list_add_back(list, list_new("b"));
 		list_add_back(list, list_new("s"));
 		list_add_back(list, list_new("r"));
-		list_add_back(list, list_new("a"));	
+		list_add_back(list, list_new("a"));
 	}
 	if (i == 4)
 	{
@@ -108,7 +108,6 @@ void	create_list(t_list **list, int i)
 	}
 	if (i == 5)
 	{
-		list_add_back(list, list_new("2"));
 		list_add_back(list, list_new("1"));
 		list_add_back(list, list_new("1"));
 		list_add_back(list, list_new("1"));
@@ -142,22 +141,22 @@ void	ft_list_remove_if_check(t_list **list)
 
 	i = 1;
 	printf("ft_list_remove_if\n");
-	// create_list(list, 1);
-	// test = *list;
-	// printf("\nOriginal list content:\n");
-	// print_lists(test);
-	// printf("\nRemove \"4\"\n");
-	// ft_list_remove_if(&test, "4", &ft_strcmp);
-	// print_lists(test);
-	// ft_list_clear(list);
-	// create_list(list, 4);
-	// test = *list;
-	// printf("\nOriginal list content:\n");
-	// print_lists(test);
-	// printf("\nRemove 1\n");
-	// ft_list_remove_if(&test, "1", &ft_strcmp);
-	// print_lists(test);
-	// ft_list_clear(list);
+	create_list(list, 1);
+	test = *list;
+	printf("\nOriginal list content:\n");
+	print_lists(test);
+	printf("\nRemove \"4\"\n");
+	ft_list_remove_if(&test, "4", &ft_strcmp);
+	print_lists(test);
+	ft_list_clear(list);
+	create_list(list, 4);
+	test = *list;
+	printf("\nOriginal list content:\n");
+	print_lists(test);
+	printf("\nRemove 1\n");
+	ft_list_remove_if(&test, "1", &ft_strcmp);
+	print_lists(test);
+	ft_list_clear(list);
 	create_list(list, 5);
 	test = *list;
 	printf("\nOriginal list content:\n");
@@ -165,7 +164,14 @@ void	ft_list_remove_if_check(t_list **list)
 	printf("\nRemove \"1\"\n");
 	ft_list_remove_if(&test, "1", &ft_strcmp);
 	print_lists(test);
-	// ft_list_clear(list);
+	ft_list_clear(list);
+	create_list(list, 6);
+	test = *list;
+	printf("\nOriginal list content:\n");
+	print_lists(test);
+	printf("\nRemove \"2\"\n");
+	ft_list_remove_if(&test, "2", &ft_strcmp);
+	print_lists(test);
  }
 
 void	ft_list_sort_check(t_list **list)
@@ -199,7 +205,7 @@ void	ft_list_size_check(t_list **list)
 	while (i < 3)
 	{
 		create_list(list, i);
-		test = *list;	
+		test = *list;
 		print_lists(test);
 		printf("\033[0;36mList size = %d\n\n\033[0;0m", ft_list_size(test));
 		i++;
@@ -229,7 +235,7 @@ int		main(int argc, char **argv)
 {
 	t_list	*list;
 
-	
+
 	// ft_atoi_base_check();
 	if (ft_strcmp(argv[1], "ft_list_push") == 0)
 		ft_list_push_front_check(&list);
@@ -239,9 +245,5 @@ int		main(int argc, char **argv)
 		ft_list_sort_check(&list);
 	else if (ft_strcmp(argv[1], "ft_list_remove_if") == 0)
 		ft_list_remove_if_check(&list);
-	while (1)
-	{
-
-	}
 	return (0);
 }
