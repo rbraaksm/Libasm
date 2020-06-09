@@ -6,7 +6,7 @@
 #    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/19 14:13:04 by rbraaksm      #+#    #+#                  #
-#    Updated: 2020/06/08 17:46:31 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/09 17:07:56 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,4 +82,4 @@ test_bonus: $(B_OBJ)
 	@echo "\033[0;36mTesting : "
 	gcc -L. -lasm -o test_bonus main_bonus.c
 	@echo "\033[0m"
-	./test_bonus
+	# ./test_bonus

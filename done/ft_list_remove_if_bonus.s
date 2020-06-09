@@ -6,14 +6,14 @@
 ;    By: abobas <abobas@student.codam.nl>             +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/04/30 15:00:56 by abobas        #+#    #+#                  ;
-;    Updated: 2020/06/05 20:15:46 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/09 17:08:12 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
-global _ft_list_remove_if
+global _ft_list_remove_if2
 extern _free
 
-_ft_list_remove_if:                                         ; rdi = **begin_list, rsi = *data_ref, rdx = *strcmp
+_ft_list_remove_if2:                                         ; rdi = **begin_list, rsi = *data_ref, rdx = *strcmp
                             push    rdi
                             cmp     rdi, 0                  ; check if begin_list pointer is not void
                             je      return
