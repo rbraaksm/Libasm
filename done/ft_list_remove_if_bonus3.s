@@ -6,7 +6,7 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/06/08 10:43:07 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/10 11:13:05 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/10 09:33:44 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -55,7 +55,10 @@ first:
 		cmp		r13, 0				; check if next.element exists
 		je		free_list			; if not? Remove list
 		mov		r13, [r13]			; save next.element with data and address
+		mov		r12, [rdi + 8]		; save next.element
 		mov		[rdi], r13			; put next.element in current.element
+		mov		r12, [r12 + 8]		; save next.next.element
+		mov		[rdi + 8], r12		; put next.next.element in current.address
 		jmp		free
 
 free_next:

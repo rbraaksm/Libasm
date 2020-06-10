@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/19 14:38:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/08 09:45:17 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/10 09:39:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,27 +65,27 @@ void	ft_read_check()
 	printf("Mine : %zd\n", ret);
 	close(fd);
 	remove("emptyFile");
-	errno = 100;
+	errno = 0;
 	printf("---------------------------------\n");
 	fd = open("I don't exist", O_RDONLY);
 	ret = read(fd, uni_buf, 5);
 	printf("Real return : %zd\n", ret);
 	perror("Real errno ");
 	close(fd);
-	errno = 100;
+	errno = 0;
 	fd = open("I don't exist", O_RDONLY);
 	ret = ft_read(fd, lib_buf, 5);
 	printf("Mine return : %zd\n", ret);
 	perror("Mine errno ");
 	close(fd);
-	errno = 100;
+	errno = 0;
 	printf("---------------------------------\n");
 	fd = open("Makefile", O_RDONLY);
 	ret = read(fd, NULL, 5);
 	printf("Real return : %zd\n", ret);
 	perror("Real errno ");
 	close(fd);
-	errno = 100;
+	errno = 0;
 	fd = open("Makefile", O_RDONLY);
 	ret = ft_read(fd, NULL, 5);
 	printf("Mine return : %zd\n", ret);
@@ -103,28 +103,28 @@ void	ft_write_check()
 	printf("\033[0;29m---------------------------------\n");
 	a = write(-40 + 1, "Codam is fun\n", 14);
 	perror("\033[0;29mReal errno ");
-	errno = 100;
+	errno = 0;
 	b = ft_write(-40 + 1, "Codam is fun\n", 14);
 	perror("Mine errno ");
 	printf("Real return : %d\nMine return : %d\n", a, b);
 	printf("\033[0;29m---------------------------------\n");
 	a = write(1, NULL, 9);
 	perror("Real errno ");
-	errno = 100;
+	errno = 0;
 	b = ft_write(1, NULL, 9);
 	perror("Mine errno ");
 	printf("Real return : %d\nMine return : %d\n", a, b);
 	printf("\033[0;29m---------------------------------\n");
 	a = write(1, 0, 10);
 	perror("Real errno ");
-	errno = 100;
+	errno = 0;
 	b = ft_write(1, 0, 10);
 	perror("Mine errno ");
 	printf("Real return : %d\nMine return : %d\n", a, b);
 	printf("\033[0;29m---------------------------------\n");
 	a = write(40, "hello", 5);
 	perror("Real errno ");
-	errno = 100;
+	errno = 0;
 	b = ft_write(40, "hello", 5);
 	perror("Mine errno ");
 	printf("Real return : %d\nMine return : %d\n", a, b);

@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 09:41:15 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/09 22:39:03 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/10 11:16:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,14 @@ void	create_list(t_list **list, int i)
 	if (i == 4)
 	{
 		list_add_back(list, list_new("1"));
-		list_add_back(list, list_new("1"));
-		list_add_back(list, list_new("1"));
 	}
 	if (i == 5)
 	{
 		list_add_back(list, list_new("1"));
-		list_add_back(list, list_new("1"));
-		list_add_back(list, list_new("1"));
 		list_add_back(list, list_new("2"));
 		list_add_back(list, list_new("2"));
+		list_add_back(list, list_new("1"));
+		list_add_back(list, list_new("1"));
 	}
 	if (i == 6)
 	{
@@ -137,7 +135,6 @@ void	print_lists(t_list *list)
 void	ft_list_remove_if_check(t_list **list)
 {
 	t_list	*test;
-	int		i;
 
 	i = 1;
 	printf("ft_list_remove_if\n");
@@ -169,9 +166,10 @@ void	ft_list_remove_if_check(t_list **list)
 	test = *list;
 	printf("\nOriginal list content:\n");
 	print_lists(test);
-	printf("\nRemove \"2\"\n");
-	ft_list_remove_if(&test, "2", &ft_strcmp);
+	printf("\nRemove \"1\"\n");
+	ft_list_remove_if(&test, "1", &ft_strcmp);
 	print_lists(test);
+	ft_list_clear(list);
  }
 
 void	ft_list_sort_check(t_list **list)
@@ -231,13 +229,19 @@ void	ft_list_push_front_check(t_list **list)
 	free(new);
 }
 
+void	ft_atoi_base_check()
+{
+	printf("%d\n", ft_atoi_base("C'est dommage42", "0123456789"));
+}
+
 int		main(int argc, char **argv)
 {
 	t_list	*list;
 
 
-	// ft_atoi_base_check();
-	if (ft_strcmp(argv[1], "ft_list_push") == 0)
+	if (ft_strcmp(argv[1], "ft_atoi_base") == 0)
+		ft_atoi_base_check();
+	else if (ft_strcmp(argv[1], "ft_list_push") == 0)
 		ft_list_push_front_check(&list);
 	else if (ft_strcmp(argv[1], "ft_list_size") == 0)
 		ft_list_size_check(&list);
