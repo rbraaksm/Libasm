@@ -6,7 +6,7 @@
 ;    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/06/08 10:42:57 by rbraaksm      #+#    #+#                  ;
-;    Updated: 2020/06/08 10:43:57 by rbraaksm      ########   odam.nl          ;
+;    Updated: 2020/06/10 12:56:38 by rbraaksm      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -96,6 +96,8 @@ inc_rdi_plus:
 		jmp		plus_minus
 
 negative:
+		cmp		r13, -1
+		je		return
 		imul	r13, -1
 		inc		rdi
 

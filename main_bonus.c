@@ -6,12 +6,116 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 09:41:15 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/10 11:16:03 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/10 13:06:39 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm_bonus.h"
 #include <stdio.h>
+
+static int	ft_is_in_base(const char *str, const char *base)
+{
+	const char	*head;
+	const char	*str_head;
+
+	head = base;
+	str_head = str;
+	while (*str)
+	{
+		while (*base)
+		{
+			if (*str == *base)
+				break ;
+			++base;
+			if (!(*base) && str == str_head)
+				return (0);
+		}
+		base = head;
+		++str;
+	}
+	return (1);
+}
+
+static int	ft_is_base_valid2(const char *str, const char *base)
+{
+	const char	*head;
+	const char	*iter;
+
+	head = base;
+	iter = base;
+	while (*iter)
+	{
+		if (!(*iter) || *iter == '+' || *iter == '-'
+				|| *iter < ' ' || *iter == 127)
+			return (0);
+		base = iter + 1;
+		while (*base)
+		{
+			if (*base == *iter)
+				return (0);
+			++base;
+		}
+		++iter;
+	}
+	if (!ft_is_in_base(str, head))
+		return (0);
+	return (1);
+}
+
+static long	ft_get_base_size2(const char *base)
+{
+	int	size;
+
+	size = 0;
+	while (*base)
+	{
+		++base;
+		++size;
+	}
+	return (size);
+}
+
+static int	ft_get_num(const char c, const char *base)
+{
+	int	i;
+
+	i = 0;
+	while (c != *base && *base)
+	{
+		++i;
+		++base;
+	}
+	return (i);
+}
+
+int			ft_atoi_base_test(const char *str, const char *base)
+{
+	int		signal;
+	long	num;
+	int		size;
+
+	num = 0;
+	signal = 1;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			signal *= -1;
+		++str;
+	}
+	if (!ft_is_base_valid2(str, base))
+		return (0);
+	size = ft_get_base_size2(base);
+	while (ft_get_num(*str, base) == size)
+		++str;
+	while (*str && ft_get_num(*str, base) != size)
+	{
+		num *= size;
+		num += ft_get_num(*str, base);
+		++str;
+	}
+	num *= signal;
+	return (num);
+}
 
 void	list_add_back(t_list **alst, t_list *new)
 {
@@ -136,7 +240,6 @@ void	ft_list_remove_if_check(t_list **list)
 {
 	t_list	*test;
 
-	i = 1;
 	printf("ft_list_remove_if\n");
 	create_list(list, 1);
 	test = *list;
@@ -225,23 +328,78 @@ void	ft_list_push_front_check(t_list **list)
 	printf("\nList after ft_list_push_front:\n");
 	ft_list_push_front(&test, new->data);
 	print_lists(test);
-	free(test);
+	ft_list_clear(list);
+	test = *list;
+	printf("\nOriginal list content:\n");
+	print_lists(test);
+	printf("\nList after ft_list_push_front:\n");
+	ft_list_push_front(&test, new->data);
+	print_lists(test);
 	free(new);
 }
 
 void	ft_atoi_base_check()
 {
-	printf("%d\n", ft_atoi_base("C'est dommage42", "0123456789"));
+	printf("\n--ft_atoi_base\n");
+	printf("Mine = %d\n", ft_atoi_base("42", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("42", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("0", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("0", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("1", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("1", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("1215415478", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("1215415478", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-0", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-0", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-1", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-1", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-42", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-42", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("--42", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("--42", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-+-42", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-+-42", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-+-+-+42", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-+-+-+42", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-+-+-+-42", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-+-+-+-42", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-1215415478", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-1215415478", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("2147483647", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("2147483647", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("2147483648", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("2147483648", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-2147483648", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-2147483648", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-2147483649", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-2147483649", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("2a", "0123456789abcdef"));
+	printf("Real = %d\n\n", ft_atoi_base_test("2a", "0123456789abcdef"));
+	printf("Mine = %d\n", ft_atoi_base("ff", "0123456789abcdef"));
+	printf("Real = %d\n\n", ft_atoi_base_test("ff", "0123456789abcdef"));
+	printf("Mine = %d\n", ft_atoi_base("poney", "poney"));
+	printf("Real = %d\n\n", ft_atoi_base_test("poney", "poney"));
+	printf("Mine = %d\n", ft_atoi_base("dommage", "invalid"));
+	printf("Real = %d\n\n", ft_atoi_base_test("dommage", "invalid"));
+	printf("Mine = %d\n", ft_atoi_base("dommage", "aussi invalide"));
+	printf("Real = %d\n\n", ft_atoi_base_test("dommage", "aussi invalide"));
+	printf("Mine = %d\n", ft_atoi_base("dommage", "+toujours"));
+	printf("Real = %d\n\n", ft_atoi_base_test("dommage", "+toujours"));
+	printf("Mine = %d\n", ft_atoi_base("42FINIS !", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("42FINIS !", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("-42FINIS !", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("-42FINIS !", "0123456789"));
+	printf("Mine = %d\n", ft_atoi_base("C'est dommage42", "0123456789"));
+	printf("Real = %d\n\n", ft_atoi_base_test("C'est dommage42", "0123456789"));
 }
 
 int		main(int argc, char **argv)
 {
 	t_list	*list;
 
-
 	if (ft_strcmp(argv[1], "ft_atoi_base") == 0)
 		ft_atoi_base_check();
-	else if (ft_strcmp(argv[1], "ft_list_push") == 0)
+	else if (ft_strcmp(argv[1], "ft_list_push_front") == 0)
 		ft_list_push_front_check(&list);
 	else if (ft_strcmp(argv[1], "ft_list_size") == 0)
 		ft_list_size_check(&list);

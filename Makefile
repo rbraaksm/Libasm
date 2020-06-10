@@ -6,7 +6,7 @@
 #    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/19 14:13:04 by rbraaksm      #+#    #+#                  #
-#    Updated: 2020/06/10 10:19:20 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/10 13:03:26 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,6 @@ test: re
 	@echo "\033[0;36mTesting : "
 	gcc -L. -lasm -o test main.c
 	@echo "\033[0m"
-	./test
 
 test_bonus: $(B_OBJ)
 	@echo "\033[0;33mUpdating library (with bonuses)..."
@@ -81,4 +80,3 @@ test_bonus: $(B_OBJ)
 	@echo "\033[0;36mTesting : "
 	gcc -L. -lasm -o test_bonus main_bonus.c
 	@echo "\033[0m"
-	# ./test_bonus

@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/19 14:38:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/10 09:39:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/10 13:02:12 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,13 +217,19 @@ void	ft_strlen_check(void)
 	printf("\033[0;29m----------------\n");
 }
 
-int		main(void)
+int		main(int arg, char **argv)
 {
-	ft_strlen_check();
-	ft_strcpy_check();
-	ft_strcmp_check();
-	ft_write_check();
-	ft_read_check();
-	ft_strdup_check();
+	if (ft_strcmp(argv[1], "ft_strlen") == 0)
+		ft_strlen_check();
+	else if (ft_strcmp(argv[1], "ft_strcpy") == 0)
+		ft_strcpy_check();
+	else if (ft_strcmp(argv[1], "ft_strcmp") == 0)
+		ft_strcmp_check();
+	else if (ft_strcmp(argv[1], "ft_write") == 0)
+		ft_write_check();
+	else if (ft_strcmp(argv[1], "ft_read") == 0)
+		ft_read_check();
+	else if (ft_strcmp(argv[1], "ft_strdup") == 0)
+		ft_strdup_check();
 	return (0);
 }
